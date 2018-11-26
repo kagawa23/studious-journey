@@ -6,6 +6,11 @@ const opn = require("opn");
 const https = require("https");
 
 function fetchData() {
+  console.log(
+    "----------------------",
+    new Date().getTime(),
+    "---------------------------"
+  );
   https
     .get(url, res => {
       const statusCode = res.statusCode;
@@ -48,4 +53,6 @@ function reminder() {
   });
 }
 
-fetchData();
+setInterval(() => {
+  fetchData();
+}, 5000);
