@@ -1,0 +1,5 @@
+{
+  "url": "https://onlineservices.immigration.govt.nz/silverfern/home.htm",
+  "regex": "There are currently no places available for the Silver Fern Quota",
+  "isNeedMeetRegex": true
+}
