@@ -5,6 +5,12 @@ const opn = require("opn");
 
 const https = require("https");
 
+let timeoutHandler = null;
+
+function getRandomInt(min, max) {
+  return min + Math.floor(Math.random() * Math.floor(max - min));
+}
+
 function fetchData() {
   console.log(
     "----------------------",
@@ -23,7 +29,6 @@ function fetchData() {
         })
         .on("end", () => {
           body = body.toString();
-          // console.log(body);
           if (statusCode === 200) {
             handleData(body);
           }
@@ -32,6 +37,16 @@ function fetchData() {
     .on("error", e => {
       console.error(e);
     });
+  const timeout = getRandomInt(5000, 10000);
+  // console.log("timeout:" + timeoutHandler);
+  if (!!timeoutHandler) {
+    console.log("clear timeout");
+    clearTimeout(timeoutHandler);
+  }
+  console.log("timeout:", timeout / 1000, "s");
+  timeoutHandler = setTimeout(() => {
+    fetchData();
+  }, timeout);
 }
 
 function handleData(data) {
@@ -53,6 +68,4 @@ function reminder() {
   });
 }
 
-setInterval(() => {
-  fetchData();
-}, 5000);
+fetchData();
